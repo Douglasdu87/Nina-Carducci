@@ -1,0 +1,30 @@
+# Activation de l'expiration des fichiers
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # Images
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  
+  # CSS, JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  
+  # Par défaut
+  ExpiresDefault "access plus 1 month"
+</IfModule>
+
+# Ajout des en-têtes de cache
+<IfModule mod_headers.c>
+  # Cache pour 1 mois par défaut
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  
+  # Cache pour 1 an pour les images
+  <FilesMatch "\.(jpg|jpeg|png|webp)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
