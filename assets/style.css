@@ -13,7 +13,7 @@ header {
 	z-index: 1000;
 	display: flex;
 	justify-content: space-between;
-	padding-inline: 100px;
+	padding-inline: 50px;
 	padding-block: 30px;
 	align-items: center;
 }
@@ -110,6 +110,9 @@ header .name {
 	position: relative;
 	margin-bottom: 0 !important;
 	padding: 0;
+	height: 507px;
+	width: 31%;
+	flex-grow: 1;
 }
 .item-column::after{
 	content: "";
