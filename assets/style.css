@@ -90,6 +90,13 @@ header .name {
 	font-size: 14px;
 }
 
+/* changement de couleur des felèches du carrousel en rouge */
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+	filter: invert(27%) sepia(97%) saturate(7484%) hue-rotate(357deg) brightness(104%) contrast(116%);
+}
+
 
 .title{
 	text-align: center;
