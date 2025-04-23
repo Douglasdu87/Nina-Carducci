@@ -1,30 +1,41 @@
 (function ($) {
+
+  // Définition du mauGallery comme méthode jQuery
   $.fn.mauGallery = function (options) {
     var options = $.extend({}, $.fn.mauGallery.defaults, options);
+    // Initialisation d'un tableau vide pour stocker les tags (catégories)
     var tagsCollection = [];
+     // Pour chaque élément DOM auquel le plugin est appliqué
     return this.each(function () {
       var gallery = $(this);
-
+ // Appel de la méthode pour précharger les images de la galerie
       $.fn.mauGallery.methods.preloadGalleryImages(gallery);
 
       $.fn.mauGallery.methods.createRowWrapper($(this));
+          // Si l'option lightBox est activée dans les paramètres
       if (options.lightBox) {
+          // Création de la lightbox avec navigation (ou non)
         $.fn.mauGallery.methods.createLightBox(
           $(this),
           options.lightboxId,
-          options.navigation
+          // option de navigation (flèches, etc.)
+          options.navigation 
         );
       }
-
+// Attache les écouteurs d'événements nécessaires à la galerie
       $.fn.mauGallery.listeners(options, gallery);
-
+// Parcourt chaque élément enfant avec la classe .gallery-item dans la galerie
       $(this)
         .children(".gallery-item")
         .each(function (index) {
           $.fn.mauGallery.methods.responsiveImageItem($(this));
+           // Déplace l'élément dans le conteneur (row wrapper) approprié
           $.fn.mauGallery.methods.moveItemInRowWrapper($(this));
+          // Enveloppe l'élément dans une colonne Bootstrap selon le nombre de colonnes défini
           $.fn.mauGallery.methods.wrapItemInColumn($(this), options.columns);
+           // Récupère le tag (catégorie) associé à l'élément
           var theTag = $(this).data("gallery-tag");
+          // Si les tags doivent être affichés, que le tag existe, et qu’il n’a pas encore été ajouté
           if (
             options.showTags &&
             theTag !== undefined &&
@@ -34,7 +45,9 @@
           }
         });
 
+// Après avoir collecté tous les tags uniques, s'ils doivent être affichés
       if (options.showTags) {
+         // Affiche les tags (filtres) au bon endroit avec la liste de tags collectés
         $.fn.mauGallery.methods.showItemTags(
           $(this),
           options.tagsPosition,
@@ -45,13 +58,17 @@
       $(this).fadeIn(500);
     });
   };
-
+// Nombre de colonnes pour afficher les éléments dans la galerie
   $.fn.mauGallery.defaults = {
     columns: 3,
+    // Active ou désactive l'affichage en lightbox (agrandissement des images)
     lightBox: true,
+    // ID personnalisé pour la lightbox (si nécessaire)
     lightboxId: null,
     showTags: true,
-    tagsPosition: "bottom",
+    // Position des tags dans la galerie ("top" ou "bottom")
+    tagsPosition: "bottom", 
+     // Active ou non les flèches de navigation dans la lightbox
     navigation: true
   };
 
@@ -72,18 +89,24 @@
       $.fn.mauGallery.methods.nextImage(options.lightboxId)
     );
   };
-
+//On crée un objet methods qui va contenir les différentes fonctions (méthodes)
   $.fn.mauGallery.methods = {
+    // fonction nommée preloadGalleryImages qui prend un paramètre gallery 
     preloadGalleryImages(gallery) {
+      // crée un tableau vide nommé imagesToPreload
       const imagesToPreload = [];
+      //tous les éléments qui ont la classe .gallery-item dans la galerie, puis on parcourt chacun d'eu
       gallery.find(".gallery-item").each(function () {
+        // On vérifie si l'élément actuel est une balise <img> en regardant son nom de balise (tagName)
         if ($(this).prop("tagName") === "IMG") {
           imagesToPreload.push($(this).attr("src"));
         }
       });
 
       if (imagesToPreload.length > 0) {
+        // Si la première image à précharger existe (le tableau n'est pas vide), on continue
         if (imagesToPreload[0]) {
+          // On crée une nouvelle instance d'image pour la charger en mémoire
           const mainImg = new Image();
           mainImg.importance = "high";
           mainImg.loading = "eager";
