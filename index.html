@@ -170,7 +170,7 @@
 </div>
 </footer>
 <script>
-	// Enregistrement du service worker
+	// Enregistrement du service worker pour la mise en cache)
 	if ('serviceWorker' in navigator) {
 	  window.addEventListener('load', () => {
 		navigator.serviceWorker.register('/service-worker.js')
@@ -183,7 +183,72 @@
 	  });
 	}
   </script>
-  
+
+<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org/",
+	  "@type": "Person",
+	  "name": "Nina Carducci",
+	  "image": "https://douglasdu87.github.io/Nina-Carducci/assets/images/nina.webp",
+	  "jobTitle": "Photographe professionnelle",
+	  "url": "https://douglasdu87.github.io/Nina-Carducci/",
+	  "sameAs": [
+		"https://www.instagram.com/ninacarducci.photo/?hl=fr"
+	  ],
+	  "description": "Photographe professionnelle basée en Île-de-France, spécialisée dans les portraits, mariages, événements et entreprises.",
+	  "address": {
+		"@type": "PostalAddress",
+		"addressLocality": "Île-de-France",
+		"addressCountry": "FR"
+	  },
+	  "makesOffer": [
+		{
+		  "@type": "Offer",
+		  "name": "Shooting photo",
+		  "description": "Capturer vos moments précieux en Île-de-France.",
+		  "priceCurrency": "EUR",
+		  "price": "350",
+		  "itemOffered": {
+			"@type": "Service",
+			"name": "Shooting photo",
+			"areaServed": {
+			  "@type": "Place",
+			  "name": "Île-de-France"
+			}
+		  }
+		},
+		{
+		  "@type": "Offer",
+		  "name": "Retouches photo",
+		  "description": "Retouches professionnelles pour un rendu optimal.",
+		  "priceCurrency": "EUR",
+		  "price": "50",
+		  "itemOffered": {
+			"@type": "Service",
+			"name": "Retouches photo"
+		  }
+		},
+		{
+		  "@type": "Offer",
+		  "name": "Album photo personnalisé",
+		  "description": "Album A4 de 30 pages pour immortaliser vos souvenirs.",
+		  "priceCurrency": "EUR",
+		  "price": "400",
+		  "itemOffered": {
+			"@type": "Product",
+			"name": "Album photo A4"
+		  }
+		}
+	  ],
+	  "contactPoint": {
+		"@type": "ContactPoint",
+		"contactType": "Service client",
+		"email": "contact@ninacarducci.com",
+		"availableLanguage": ["fr"]
+	  }
+	}
+	</script>
+
 </body>
 </html>
 
