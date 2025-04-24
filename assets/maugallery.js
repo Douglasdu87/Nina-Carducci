@@ -163,11 +163,15 @@
     },
 
     moveItemInRowWrapper(element) {
+
+  // Déplace l'élément spécifié dans un conteneur avec la classe CSS .gallery-items-row
       element.appendTo(".gallery-items-row");
     },
 
     responsiveImageItem(element) {
+       // Vérifie si l'élément est une balise <img>
       if (element.prop("tagName") === "IMG") {
+        
         element.addClass("img-fluid");
 
         if (!element.attr("width") || !element.attr("height")) {
