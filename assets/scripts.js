@@ -1,6 +1,7 @@
 // Remplacer le code existant par celui-ci
 document.addEventListener("DOMContentLoaded", function() {
   // Différer l'initialisation de la galerie
+  if (window.jQuery){
   setTimeout(function() {
     $('.gallery').mauGallery({
       columns: {
@@ -15,5 +16,6 @@ document.addEventListener("DOMContentLoaded", function() {
       showTags: true,
       tagsPosition: 'top'
     });
-  }, 10); // Petit délai pour permettre au reste de la page de se charger
+  }, 25); // Petit délai pour permettre au reste de la page de se charger
+}
 });

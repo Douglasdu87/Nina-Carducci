@@ -6,6 +6,8 @@ const urlsToCache = [
   '/assets/maugallery.js',
   '/assets/scripts.js',
   '/assets/bootstrap/bootstrap.bundle.js',
+  '/assets/images/slider/ryoji-iwata-wUZjnOv7t0g-unsplash_result-min(1)-min-min-min.webp',
+  '/assets/fonts/inter.woff2'
   // Ajoutez ici vos CSS, images principales, etc.
 ];
 
