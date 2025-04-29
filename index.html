@@ -257,72 +257,78 @@
 			});
 		}
 	</script>
-
-	<script type="application/ld+json">
-		{
-			"@context": "https://schema.org/",
-			"@type": "Organization",
-			"name": "Nina Carducci",
-			"url": "https://douglasdu87.github.io/Nina-Carducci/",
-			"logo": "https://douglasdu87.github.io/Nina-Carducci/assets/images/nina.webp",
-			"description": "Photographe professionnelle basée en Île-de-France, spécialisée dans les portraits, mariages, événements et entreprises.",
-			"address": {
-			  "@type": "PostalAddress",
-			  "addressLocality": "Île-de-France",
-			  "addressCountry": "FR"
-			},
-			"sameAs": [
-			  "https://www.instagram.com/ninacarducci.photo/?hl=fr"
-			],
-			"contactPoint": {
-			  "@type": "ContactPoint",
-			  "contactType": "Service client",
-			  "email": "contact@ninacarducci.com",
-			  "availableLanguage": ["fr"]
-			},
-			"hasOfferCatalog": {
-			  "@type": "OfferCatalog",
-			  "name": "Catalogue de services",
-			  "itemListElement": [
+		<script type="application/ld+json">
+			{
+			  "@context": "https://schema.org",
+			  "@type": "LocalBusiness",
+			  "name": "Nina Carducci",
+			  "image": "https://douglasdu87.github.io/Nina-Carducci/assets/images/nina.webp",
+			  "url": "https://douglasdu87.github.io/Nina-Carducci/",
+			  "description": "Photographe professionnelle basée en Île-de-France, spécialisée dans les portraits, mariages, événements et entreprises.",
+			  "address": {
+				"@type": "PostalAddress",
+				"streetAddress": "68 avenue Alsace-Lorraine",
+				"addressLocality": "Bordeaux",
+				"postalCode": "33200",
+				"addressRegion": "Gironde",
+				"addressCountry": "FR"
+			  },
+			  "geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "44.8465743",
+				"longitude": "-0.6065366"
+			  },
+			  "telephone": "+33556677889",
+			  "openingHoursSpecification": [
+				{
+				  "@type": "OpeningHoursSpecification",
+				  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+				  "opens": "10:00",
+				  "closes": "19:00"
+				}
+			  ],
+			  "priceRange": "€€",
+			  "sameAs": [
+				"https://www.instagram.com/ninacarducci.photo/?hl=fr"
+			  ],
+			  "contactPoint": {
+				"@type": "ContactPoint",
+				"contactType": "Customer Service",
+				"telephone": "+33556677889",
+				"email": "contact@ninacarducci.com",
+				"availableLanguage": ["French"]
+			  },
+			  "makesOffer": [
 				{
 				  "@type": "Offer",
 				  "name": "Shooting photo",
 				  "description": "Capturer vos moments précieux en Île-de-France.",
-				  "priceCurrency": "EUR",
 				  "price": "350",
-				  "itemOffered": {
-					"@type": "Service",
-					"name": "Shooting photo"
-				  }
+				  "priceCurrency": "EUR",
+				  "availability": "https://schema.org/InStock",
+				  "validFrom": "2023-01-01"
 				},
 				{
 				  "@type": "Offer",
 				  "name": "Retouches photo",
 				  "description": "Retouches professionnelles pour un rendu optimal.",
-				  "priceCurrency": "EUR",
 				  "price": "50",
-				  "itemOffered": {
-					"@type": "Service",
-					"name": "Retouches photo"
-				  }
+				  "priceCurrency": "EUR",
+				  "availability": "https://schema.org/InStock",
+				  "validFrom": "2023-01-01"
 				},
 				{
 				  "@type": "Offer",
 				  "name": "Album photo personnalisé",
 				  "description": "Album A4 de 30 pages pour immortaliser vos souvenirs.",
-				  "priceCurrency": "EUR",
 				  "price": "400",
-				  "itemOffered": {
-					"@type": "Product",
-					"name": "Album photo A4"
-				  }
+				  "priceCurrency": "EUR",
+				  "availability": "https://schema.org/InStock",
+				  "validFrom": "2023-01-01"
 				}
 			  ]
 			}
-		  }
-		  
-	</script>
-
+		</script>
 </body>
 
 </html>
