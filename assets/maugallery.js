@@ -64,7 +64,7 @@
     columns: 3,
     // Active ou désactive l'affichage en lightbox (agrandissement des images)
     lightBox: true,
-    // ID personnalisé pour la lightbox (si nécessaire)
+    // ID personnalisé pour la lightbox 
     lightboxId: null,
     showTags: true,
     // Position des tags dans la galerie ("top" ou "bottom")
@@ -133,25 +133,29 @@
         }
       }
     },
-    
+    // Vérifie si le premier enfant de "element" n'a PAS la classe "row"
     createRowWrapper(element) {
       if (
         !element
           .children()
           .first()
-          .hasClass("row")
+          .hasClass("row") // Vérifie s'il a la classe 'row'
       ) {
+        // Si ce n’est pas le cas, on ajoute un conteneur de ligne pour y insérer des colonnes ensuite
         element.append('<div class="gallery-items-row row"></div>');
       }
     },
-
+    // Si "columns" est un nombre, on divise la grille Bootstrap par ce nombre
     wrapItemInColumn(element, columns) {
+      
       if (columns.constructor === Number) {
         element.wrap(
           `<div class='item-column mb-4 col-${Math.ceil(12 / columns)}'></div>`
         );
+        // Si "columns" est un objet, on gère la réactivité pour chaque point de rupture Bootstrap
       } else if (columns.constructor === Object) {
         var columnClasses = "";
+        // Si une valeur pour xs (extra small) est définie, on ajoute la classe correspondante
         if (columns.xs) {
           columnClasses += ` col-${Math.ceil(12 / columns.xs)}`;
         }
@@ -186,16 +190,24 @@
       if (element.prop("tagName") === "IMG") {
         
         element.addClass("img-fluid");
-
+        // Si l'image n'a pas d'attribut width ou height
         if (!element.attr("width") || !element.attr("height")) {
+          // Si l'image est déjà chargée et a des dimensions naturelles connues
           if (element[0].complete && element[0].naturalWidth > 0) {
+            // Calcule le ratio largeur/hauteur
             const ratio = element[0].naturalHeight / element[0].naturalWidth;
+            // Applique une règle CSS "aspect-ratio" exacte pour garder les proportions
             element.css("aspect-ratio", `${element[0].naturalWidth} / ${element[0].naturalHeight}`);
+            // Définit l'attribut "width" si non présent
             if (!element.attr("width")) element.attr("width", element[0].naturalWidth);
+             // Définit l'attribut "height" si non présent
             if (!element.attr("height")) element.attr("height", element[0].naturalHeight);
           } else {
+            // Applique un aspect ratio par défaut (4:3)
             element.css("aspect-ratio", "4/3");
+            // Une fois l'image chargée
             element.on("load", function () {
+                // Met à jour le vrai ratio
               const ratio = this.naturalHeight / this.naturalWidth;
               $(this).css("aspect-ratio", `${this.naturalWidth} / ${this.naturalHeight}`);
               if (!$(this).attr("width")) $(this).attr("width", this.naturalWidth);
@@ -203,24 +215,27 @@
             });
           }
         }
-
+      // Si l'attribut "loading" (lazy/eager) n'est pas encore défini
         if (!element.attr("loading")) {
+          // On considère les 3 premières images comme "importantes" pour le chargement
           const isImportant = element.closest(".item-column").index() < 3;
+          // Chargement rapide ("eager") pour les premières, différé ("lazy") pour les autres
           element.attr("loading", isImportant ? "eager" : "lazy");
           if (isImportant) {
+            // Priorise explicitement le chargement dans le navigateur
             element.attr("fetchpriority", "high");
           }
         }
       }
     },
-
+     // Sélectionne l'élément avec l'ID du lightbox passé en paramètre
     openLightBox(element, lightboxId) {
       const lightbox = $(`#${lightboxId}`);
       if (lightbox.length === 0) {
         console.error(`Lightbox avec l'id ${lightboxId} non trouvée`);
         return;
       }
-    
+     // Récupère l’attribut `src` de l'image sur laquelle on a cliqué
       lightbox.find(".lightboxImage").attr("src", element.attr("src"));
     
       // Mettre en cache la collection d'images pour éviter de la recréer à chaque fois
@@ -262,8 +277,9 @@
       }
       
       const activeImageSrc = $(".lightboxImage").attr("src");
+      // On initialise l'index à 0 (au cas où l'image actuelle serait la première de la collection)
       let index = 0;
-      
+       // On parcourt toutes les images enregistrées dans la collection mise en cache
       for (let i = 0; i < this._cachedImagesCollection.length; i++) {
         if ($(this._cachedImagesCollection[i]).attr("src") === activeImageSrc) {
           index = i;
@@ -292,20 +308,24 @@
     this._lastActiveTag = $(".tags-bar span.active-tag").data("images-toggle");
     this._updateImageCollection();
   }
-
+  // Récupère l'URL (src) de l'image actuellement affichée dans le lightbox
   const activeImageSrc = $(".lightboxImage").attr("src");
   let index = 0;
-
+  // Parcourt toutes les images stockées dans le cache (galerie)
   for (let i = 0; i < this._cachedImagesCollection.length; i++) {
+    // Si la source de l'image courante correspond à celle affichée dans le lightbox
     if ($(this._cachedImagesCollection[i]).attr("src") === activeImageSrc) {
+       // On enregistre l'index de cette image
       index = i;
+    // On arrête la boucle car on a trouvé l'image active
       break;
     }
   }
-
+  // Calcule l’index de l’image suivante, en bouclant à zéro si on est à la fin
   const nextIndex = (index + 1) % this._cachedImagesCollection.length;
+  // Récupère l’élément DOM de la prochaine image dans la galerie
   const next = this._cachedImagesCollection[nextIndex];
-
+  // Change la source de l'image du lightbox pour afficher l'image suivante
   $(".lightboxImage").attr("src", $(next).attr("src"));
 
   // Précharger l'image suivante uniquement si nécessaire et de manière asynchrone
@@ -317,6 +337,7 @@
     });
   }
 },
+// mettre à jour la collection d'images actuellement visibles/sélectionnées
 _updateImageCollection() {
   const activeTag = $(".tags-bar span.active-tag").data("images-toggle");
   this._lastActiveTag = activeTag;
@@ -324,17 +345,22 @@ _updateImageCollection() {
 
   // Utiliser une seule sélection DOM et la stocker
   const itemColumns = $(".item-column");
-  
+    // Si l'utilisateur a sélectionné le tag "all", on veut afficher toutes les images
   if (activeTag === "all") {
+    // On parcourt chaque élément qui contient une image (chaque colonne de la galerie)
     itemColumns.each((i, el) => {
+      // On récupère l'image enfant de la colonne
       const img = $(el).children("img");
       if (img.length) {
+      // On ajoute l'élément image (balise <img>) à la collection mise en cache
         this._cachedImagesCollection.push(img[0]);
       }
     });
   } else {
+     // Si un tag spécifique est sélectionné (autre que "all")
     itemColumns.each((i, el) => {
       const img = $(el).children("img");
+      // On vérifie que l'image existe ET que son tag correspond au tag actif
       if (img.length && img.data("gallery-tag") === activeTag) {
         this._cachedImagesCollection.push(img[0]);
       }
@@ -363,13 +389,15 @@ createLightBox(gallery, lightboxId, navigation) {
     }, 0);
   }
 },
-
+// Crée dynamiquement une barre de filtres de tags pour les images d'une galerie.
     showItemTags(gallery, position, tags) {
+      // ajouter l’élément "Tous" (pour afficher toutes les images)
       var tagItems = '<li class="nav-item"><span class="nav-link active active-tag" data-images-toggle="all">Tous</span></li>';
       $.each(tags, function (index, value) {
         tagItems += `<li class="nav-item active">
                 <span class="nav-link" data-images-toggle="${value}">${value}</span></li>`;
       });
+      // Regroupe tous les éléments dans une <ul> avec des classes Bootstrap
       var tagsRow = `<ul class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
 
       if (position === "bottom") {
@@ -399,10 +427,13 @@ createLightBox(gallery, lightboxId, navigation) {
       requestAnimationFrame(() => {
         // Stocker les éléments DOM pour éviter les requêtes répétées
         const columns = $(".item-column");
-        
+        // Pour chaque colonne contenant une image dans la galerie
         columns.each(function() {
+           // On récupère l’élément courant (la colonne)
           const column = $(this);
+          // On trouve l’image à l’intérieur de cette colonne
           const galleryItem = column.find(".gallery-item");
+          // On vérifie si cette image doit être affichée : // - soit parce que le tag de l’image correspond au tag sélectionné
           const shouldShow = tag === "all" || galleryItem.data("gallery-tag") === tag;
     
           if (shouldShow) {

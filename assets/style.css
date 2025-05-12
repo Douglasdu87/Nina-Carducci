@@ -8,11 +8,14 @@ body {
 }
 header {
 	background-color: white;
+	/* Fait en sorte que le header reste visible en haut de la page lors du défilement */
 	position: sticky;
 	top:0;
 	z-index: 1000;
 	display: flex;
-	justify-content: space-between;
+	/* Espace les éléments à l'intérieur*/
+	justify-content: space-between; 
+	  /* Ajoute 50px de padding à gauche et à droite */
 	padding-inline: 50px;
 	padding-block: 30px;
 	align-items: center;
@@ -26,10 +29,11 @@ header .name {
 	display: flex;
 	list-style-type: none;
 	font-size: 14px;
-	margin-bottom: 0;
+	margin-bottom: 0; /* Supprime l'espace en bas de la liste */
 }
 
 .nav li {
+	/* Ajoute 10px d’espace à gauche et à droite de chaque <li> */
 	padding-inline: 10px;
 }
 
@@ -39,31 +43,40 @@ header .name {
 }
 
 .social-link img {
-	width: 20px;
+	/* Définit une largeur fixe de 20px pour les icônes (ex: Facebook, Instagram...) */
+	width: 20px; 
 }
 
 #about {
+	/* Utilise Flexbox pour aligner horizontalement les éléments enfants */
 	display: flex;
 	background-color: #F6D2B8;
 	padding-inline: 100px;
 	padding-block: 100px;
-	position: relative;
+	/* Nécessaire pour positionner les éléments enfants avec position:absolute */
+	position: relative; 
 }
 
 .picture.left::before {
+	/* Crée un pseudo-élément vide */
 	content: ' ';
 	background-color: #E5975F;
 	width: 374px;
 	height: 329px;
+	 /* Positionne ce bloc par rapport au parent .picture.left */
 	position: absolute;
+	 /* Ancre ce bloc en bas */
 	bottom: 0;
 	left: 0;
+	/* Envoie le bloc derrière l'image réelle */
 	z-index: -1;
 }
 
 .picture {
+	 /* Chaque élément .picture prend une part égale de l'espace disponible */
 	flex: 1;
 	margin: 0 20px;
+	 /* Définit le niveau de superposition par défaut */
 	z-index: 0;
 }
 
@@ -72,6 +85,7 @@ header .name {
 
 }
 #about-me {
+	/* Le conteneur "about-me" prend 2 fois plus d'espace que d'autres éléments flex dans son parent */
 	flex: 2
 }
 .about-me__title {
@@ -83,6 +97,7 @@ header .name {
 	font-family: 'Spectral';
 	font-weight: 800;
 	font-style: italic;
+	 /* Prend 60% de la largeur du conteneur parent */
 	width: 60%;
 }
 #about-me p {
@@ -91,6 +106,7 @@ header .name {
 }
 
 #carouselExampleIndicators button {
+	 /* Améliore la luminosité et le contraste des boutons du carrousel */
     filter: brightness(1.2) contrast(1.1)
 }
 .title{
@@ -98,6 +114,7 @@ header .name {
 	padding-block: 2em;
 }
 .gallery .nav {
+	/*Centre les éléments de la barre de navigation */
 	justify-content: center;
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -109,14 +126,17 @@ header .name {
 	color: #000
 }
 .item-column {
+	/* Permet de positionner des éléments enfants absolument par rapport à cet élément */
 	position: relative;
 	margin-bottom: 0 !important;
 	padding: 0;
 	height: 507px;
 	width: 31%;
+	/* Permet à l'élément de croître et occuper de l'espace disponible si nécessaire dans un conteneur flex */
 	flex-grow: 1;
 }
 .item-column::after{
+	/* Crée un contenu vide pour le pseudo-élément */
 	content: "";
 	display: block;
 	
@@ -126,7 +146,9 @@ header .name {
 	position: absolute;
 	width: 100%;
 	height: 100%;
+	/* Les éléments s'adaptent à leur conteneur en remplissant l'espace tout en maintenant leur ratio de proportions */
 	object-fit: cover;
+	/* Un peu d'espace intérieur autour de l'élément */
 	padding: .5em;
 }
 .mg-prev, .mg-next {
@@ -168,12 +190,15 @@ header .name {
 	height: 30%;
 	bottom: 0;
 	left: 0;
+	/* Assure que cet élément est derrière les autres contenus (si nécessaire) */
 	z-index: 0;
 }
 
 #services .container {
+	/* Espacement égal entre les éléments à l'intérieur du conteneur */
 	justify-content: space-between;
 	display: flex;
+	/* Ajoute un padding vertical (haut et bas) de 2em */
 	padding : 2em 0;
 
 }
@@ -183,14 +208,18 @@ header .name {
 	max-width: 390px;
 	width: 30%;
 	height: 337px;
+	/* Ajoute un espacement intérieur de 1em tout autour de l'élément */
 	padding: 1em;
 	display: flex;
+	/* Organise les éléments enfants de manière verticale (colonne) */
 	flex-direction: column;
 	justify-content: space-between;
+	/* Assure que cet élément soit superposé au-dessus des éléments qui ont un z-index inférieur */
 	z-index: 1;
 }
 
 #contact {
+	 /* Centre la section horizontalement dans son conteneur parent */
 	margin: auto;
 	background-color: #D8D3A8 ;
 	position: relative;
@@ -199,12 +228,15 @@ header .name {
 }
 
 #contact .container {
+	/* Utilise Flexbox pour organiser les éléments enfants à l'intérieur */
 	display: flex;
 }
 .picture.right::before {
+	/* Crée un pseudo-élément vide */
 	content: ' ';
 	background-color: #BEB45A;
 	width: 374px;
+	/* Définit une hauteur fixe de 329px pour ce pseudo-élément */
 	height: 329px;
 	position: absolute;
 	bottom: 0;
@@ -216,9 +248,12 @@ header .name {
 
 }
 form {
+	/* Utilise Flexbox pour organiser les éléments à l'intérieur du formulaire */
 	display: flex;
 	flex-direction: column;
+	/* Définit la largeur du formulaire à 70% de son conteneur parent */
 	width: 70%;
+	/* Aligne les éléments du formulaire au début de la ligne (à gauche) */
 	align-items: flex-start;
 }
 
